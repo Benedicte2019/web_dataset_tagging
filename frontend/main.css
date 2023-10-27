@@ -1,0 +1,83 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+
+}
+body {
+    font-family:Georgia, 'Times New Roman', Times, serif; /*chenge to Poppins*/
+    height: 100%;
+    padding-left: 1em;
+    padding-top: 1em;
+    padding-right: 1em;
+    padding-bottom: 3em; /*remove after adding footer*/
+}
+
+button {
+    background-color: rgb(67, 145, 67);
+    color: white;
+    padding: 0.5em;
+    border-style: none;
+}
+
+/* style for title of page */
+.pg-title {
+    padding-bottom: 1em;
+}
+
+.btn {
+    padding-bottom: 1em;
+}
+
+.btn-df {
+    padding-top: 1em;
+    padding-bottom: 1em;
+}
+
+.df-filename {
+    padding-top: 1em;
+    padding-bottom: 1em;
+}
+
+/* dataset preview area */
+.df {
+    box-sizing: border-box;
+    border: 1px solid gray;
+    height: 300px;
+    /* padding-right: 1em; */
+}
+
+.c-desc {
+    margin-right: 1em;
+    box-sizing: border-box;
+    border: 1px solid gray;
+    height: 200px;
+}
+
+.c-tag {
+    padding-top: 1em;
+    box-sizing: border-box;
+    border: 1px solid gray;
+    height: 200px;
+}
+
+/* aligning sections of description and tagging */
+.dt-desc-tag {
+    display: grid;
+    padding-top: 1em;
+    /* 
+    padding-left: 1em;
+    padding-right: 1em;
+    padding-bottom: 1em; */
+    grid-template-areas: 
+        'a a b'
+        'a a b';
+}
+
+.description {
+    grid-area: a;
+}
+
+.tagging {
+    grid-area: b;
+}
