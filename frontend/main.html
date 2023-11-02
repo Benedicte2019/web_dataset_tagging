@@ -10,17 +10,23 @@
 <body>
     <!-- Page starts here -->
     <div class="pg-title">
-        <h3>Automated Dataset Description and Tagging</h3>
+        <h1>Automated Dataset Description and Tagging</h1>
         <!-- <hr> -->
     </div>
 
     <!-- This section shows data head -->
     <div class="dt-overview">
         <div class="btn btn-df">
-            <!-- class="btn-df" -->
-            <button type="button">Upload file</button>
+            <form id="uploadForm" enctype="multipart/form-data">
+                <input type="file" id="myFiles" accept="image/*" />
+                <!-- class="btn-df" -->
+                <button id="button">Upload file</button>
+            </form>
         </div>
-        <div class="file-name"></div>
+        <div class="file-name">
+            <h2></h2>
+            <h3></h3>
+        </div>
         <div class="df"></div>
     </div>
 
@@ -29,7 +35,7 @@
         <!-- description section -->
         <div class="description">
             <div class="btn btn-desc">
-                <button class="btn-desc" type="button">Generate description</button>
+                <button class="btn-desc" id="button">Generate description</button>
             </div>
             <div class="content c-desc"></div>
         </div>
@@ -37,11 +43,46 @@
         <!-- tags section -->
         <div class="tagging">
             <div class="btn btn-tag">
-                <button class="btn-tag" type="button">Generate keywords</button>
+                <button class="btn-tag" id="button">Generate keywords</button>
             </div>
             <div class="content c-tag"></div>
         </div>
     </div>
+
+    <script>
+        const form = document.getElementById('uploadForm')
+
+        const sendFiles = async () => {
+            // Object
+            const myFiles = document.getElementById('myFiles').files
+
+            const formData = new FormData()
+
+            Object.keys(myFiles).forEach(key => {
+                formData.append(myFiles.item(key).name, myFiles.item(key))
+            })
+
+            const response = await fetch('http://localhost:3500/upload', {
+                method: 'POST',
+                body: formData
+            })
+
+            const json = await response.json()
+
+            const h2 = document.querySelector('h2')
+            h2.textContent = `Status: ${json?.status}`
+
+            const h3 = document.querySelector('h3')
+            h3.textContent = json?.message
+
+            console.log(json)
+        }
+        form.addEventListener('submit', (e) => {
+            console.log("I got here")
+            e.preventDefault()
+            sendFiles()
+        })
+    </script>
 
     
 </body>
