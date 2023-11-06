@@ -1,7 +1,11 @@
 const express = require("express");
-const fileUpload = require("express-fileupload")
+const fileUpload = require("express-fileupload");
 
 const path = require("path");
+
+const filesPayloadExists = require("./middleware/filesPayloadExists");
+const fileExtLimiter = require("./middleware/fileExtLimiter")
+const fileSizeLimiter = require("./middleware/fileSizeLimiter")
 
 const PORT = process.env.PORT || 3500;
 
@@ -17,6 +21,9 @@ app.get("/main.css", (req, res) => {
 
 app.post('/upload', 
     fileUpload({createParentPath: true}),
+    filesPayloadExists,
+    fileExtLimiter(['.csv','.xlsx']),
+    fileSizeLimiter,
     (req, res) => {
         const files = req.files
         console.log(files)
