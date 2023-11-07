@@ -32,6 +32,7 @@ body {
 
 .btn-df {
     margin-top: 1em;
+    padding-bottom: 0.5em;
     /* padding-bottom: 1em; */
 }
 
@@ -41,16 +42,32 @@ body {
 }
 
 /* dataset preview area */
+/*overflow makes div scrollable
+ *overflow x:auto and y:hidden makes overflow horizontal, vertical otherwise
+*/
 .df {
     box-sizing: border-box;
     border: 1px solid gray;
+    overflow-x: auto; 
+    overflow-y: hidden;
     /* height: 300px; */
     /* padding-right: 1em; */
+}
+/* styling paragraphs showing upload status */
+#p1 {
+    color: rgb(67, 145, 67);
+    font-style: italic;
+    font-size: small;
+}
+#p2 {
+    color: red;
+    font-style: italic;
+    font-size: small;
 }
 /* customizing generated table */
 table {
     border-collapse: collapse;
-    border-radius: 5px;
+    /* border-radius: 5px; */
     box-shadow: 0 0 4px rgba(0, 0, 0, 0.25);
     overflow: hidden;
     font-family: "Quicksand", sans-serif;
@@ -59,7 +76,7 @@ table {
   }
   
   th {
-    background: #009578;
+    background: rgb(67, 145, 67);
     color: #ffffff;
     text-align: left;
   }
