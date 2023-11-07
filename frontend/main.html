@@ -18,17 +18,20 @@
     <div class="dt-overview">
         <div class="btn btn-df">
             <form id="uploadForm" enctype="multipart/form-data">
-                <input type="file" id="myFiles" accept="image/*" />
-            </form>
-            <form id="uploadFile">
+                <input type="file" id="myFiles" style="padding-bottom: 5px;" accept=".csv, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel"/> <br/>
                 <button class="btn-df" id="button">Upload file</button>
             </form>
         </div>
         <div class="file-name">
-            <h2></h2>
-            <h3></h3>
+            <h2 id="generateTable"></h2>
+            <p id="p1"></p>
+            <p id="p2" style="color: red;"></p>
         </div>
-        <div class="df"></div>
+        <div class="df">
+            <table id="csvRoot">
+
+            </table>
+        </div>
     </div>
 
     <!-- This section displays description and tags -->
@@ -49,13 +52,15 @@
             <div class="content c-tag"></div>
         </div>
     </div>
-
+    <script src="https://cdn.jsdelivr.net/npm/papaparse@5.2.0/papaparse.min.js"></script>
     <script>
         const form = document.getElementById('uploadForm')
 
-        const sendFiles = async () => {
-            // Object
-            const myFiles = document.getElementById('myFiles').files
+        // Object
+        
+        
+
+        const sendFiles = async (myFiles) => {
 
             const formData = new FormData()
 
@@ -69,22 +74,94 @@
             })
 
             const json = await response.json()
+            
+            const p_1 = document.getElementById('p1')
+            const p_2 = document.getElementById('p2')
 
-            const h2 = document.querySelector('h2')
-            h2.textContent = `Status: ${json?.status}`
+            p_1.innerHTML = ""
+            p_2.innerHTML = ""
 
-            const h3 = document.querySelector('h3')
-            h3.textContent = json?.message
+            if (`${json?.status}` == 'Succesfully uploaded'){
+                p_1.innerHTML = `${json?.status} ${json?.message}`
+            }
 
-            console.log(json)
+            else {
+                p_2.innerHTML = `${json?.status} ${json?.message}`
+            }
+
+            return `${json?.status}`
         }
-        form.addEventListener('submit', (e) => {
+
+        class generateTable {
+            constructor(root) {
+                this.root = root;
+            }
+
+            setHeaders(headerColumns) {
+                this.root.insertAdjacentHTML("afterbegin", `
+                    <thead>
+                        <tr>
+                            ${headerColumns.map(text => `<th>${text}</th>`).join("")}
+                        </tr>
+                    </thead>
+                `)
+            }
+
+            update(data, headerColumns = []) {
+                this.clear();
+                this.setHeaders(headerColumns);
+                this.setBody(data);
+            }
+
+            clear() {
+                this.root.innerHTML = "";
+            }
+
+            setBody(data) {
+                const rowsHtml = data.map(row => {
+                    return `
+                        <tr>
+                            ${ row.map(text => `<td>${ text }</td>`).join("") }
+                        </tr>
+                    `;
+                });
+
+                this.root.insertAdjacentHTML("beforeend",`
+                    <tbody>
+                        ${ rowsHtml.join("") }
+                    </tbody>
+                `);
+            }
+        }
+
+        const tableRoot = document.querySelector("#csvRoot");
+        const tableCsv = new generateTable(tableRoot);
+
+        form.addEventListener('submit', async (e) => {
+            const myFiles = document.getElementById('myFiles').files
             console.log("I got here")
             e.preventDefault()
-            sendFiles()
-        })
-    </script>
+            const res = await sendFiles(myFiles)
+            console.log(res)
+            if (res == 'Succesfully uploaded') {
+                // createTableHeaders(["ID", "Name", "Age"]);
+                // tableCsv.update([
+                //     [4500, "decode", 65],
+                //     [6300, "Pascal", 32],
+                //     [7200, "Gloria", 12]
+                // ], ["ID", "Name", "Age"]);
 
+                Papa.parse(myFiles[0], {
+                    delimeter: ',',
+                    skipEmptyLines: true,
+                    complete: results => {
+                        tableCsv.update(results.data.slice(1, 6), results.data[0]);
+                    }
+                });
+            }
+            
+        });
+    </script>
     
 </body>
 </html>

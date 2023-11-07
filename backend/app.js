@@ -1,5 +1,8 @@
+
+
 const express = require("express");
 const fileUpload = require("express-fileupload");
+
 
 const path = require("path");
 
@@ -28,8 +31,15 @@ app.post('/upload',
         const files = req.files
         console.log(files)
 
-        return res.json({status:'logged', message: 'logged'})
+        Object.keys(files).forEach(key => {
+            const filepath = path.join(__dirname, 'files', files[key].name)
+            files[key].mv(filepath, (err) => {
+                if (err) return res.status(500).json({status: "error", message: err})
+            })
+        })
+
+        return res.json({ status:'Succesfully uploaded', message: Object.keys(files).toString() })
     }
 
 )
-app.listen(PORT, () => console .log(`Server running on port ${PORT}`))
+app.listen(PORT, () => console.log(`Server running on port ${PORT}`))
