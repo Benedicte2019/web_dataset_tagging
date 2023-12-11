@@ -19,7 +19,7 @@
         <div class="btn btn-df">
             <form id="uploadForm" enctype="multipart/form-data">
                 <input type="file" id="myFiles" style="padding-bottom: 5px;" accept=".csv, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel"/> <br/>
-                <button class="btn-df" id="button">Upload file</button>
+                <button id="btn-df" class="button">Upload file</button>
             </form>
         </div>
         <div class="file-name">
@@ -39,27 +39,31 @@
         <!-- description section -->
         <div class="description">
             <div class="btn btn-desc">
-                <button class="btn-desc" id="button">Generate description</button>
+                <button id="btn-desc" class="button">Generate description</button>
             </div>
-            <div class="content c-desc"></div>
+            <div class="content c-desc" id="c-description"></div>
         </div>
 
         <!-- tags section -->
         <div class="tagging">
             <div class="btn btn-tag">
-                <button class="btn-tag" id="button">Generate keywords</button>
+                <button id="btn-tag" class="button">Generate keywords</button>
             </div>
-            <div class="content c-tag"></div>
+            <div class="content c-tag" id="c-tagging"></div>
         </div>
     </div>
     <script src="https://cdn.jsdelivr.net/npm/papaparse@5.2.0/papaparse.min.js"></script>
     <script>
         const form = document.getElementById('uploadForm')
+        const gen_desc = document.getElementById("btn-desc")
+
+        const desc_div = document.getElementById("c-description")
+
+        const btn_tag = document.getElementById("btn-desc")
+        const tag_div = document.getElementById("c-tagging")
 
         // Object
         
-        
-
         const sendFiles = async (myFiles) => {
 
             const formData = new FormData()
@@ -74,6 +78,8 @@
             })
 
             const json = await response.json()
+
+            console.log(`${json?.message}`)
             
             const p_1 = document.getElementById('p1')
             const p_2 = document.getElementById('p2')
@@ -82,14 +88,52 @@
             p_2.innerHTML = ""
 
             if (`${json?.status}` == 'Succesfully uploaded'){
-                p_1.innerHTML = `${json?.status} ${json?.message}`
+                p_1.innerHTML = `${json?.status} ${json?.message.split("/").slice(-1)}`
             }
 
             else {
-                p_2.innerHTML = `${json?.status} ${json?.message}`
+                p_2.innerHTML = `${json?.status} ${json?.message.split("/").slice(-1)}`
             }
 
-            return `${json?.status}`
+            return json
+        }
+
+        const generateTag = async (filepath) => {
+            tag_div.innerHTML = ""
+
+            tag_div.innerHTML = "\
+            Agriculture\n\
+            Costs\n\
+            Personnel\n\
+            Equipment\n\
+            "
+        }
+
+        const generateDesc = async (filepath) => {
+
+            // console.log(filepath)
+
+            // const response = await fetch('http://localhost:3500/generate', {
+            //     method: 'POST',
+            //     headers: {
+            //         "Content-Type": "application/json"
+            //     },
+            //     body: JSON.stringify({"name":filepath})
+            // })
+            // const json = await response.json()
+
+            desc_div.innerHTML = ""
+            // `${json?.result}`
+            desc_div.innerHTML = "\
+            This dataset contains the Consumer Price Index (CPI) for All items, Food and non-alcoholic beverages, \
+            and Alcoholic Beverages, Tobacco, and Narcotics in Ethiopia from 2019 to 2020. The CPI is a measure of the \
+            average change over time in the prices paid by consumers for a basket of goods and services. The CPI is expressed \
+            as an index number with a base of 100. The CPI for All items in Ethiopia was 219.0 in 2019, 226.0 for Food \
+            and non-alcoholic beverages, and 220.0 for Alcoholic Beverages, Tobacco, and Narcotics. The CPI for All items in \
+            Ethiopia ranged from -3.90 in April 2020 to 40.64 in December 2019. The CPI for Food and non-alcoholic beverages \
+            ranged from -12.79 in April 2020 to 78.27 in December 2019. The CPI for Alcoholic Beverages, Tobacco, and Narcotics \
+            ranged from -4.27 in April 2020 to 49.43 in December 2019.\
+            "
         }
 
         class generateTable {
@@ -143,13 +187,7 @@
             e.preventDefault()
             const res = await sendFiles(myFiles)
             console.log(res)
-            if (res == 'Succesfully uploaded') {
-                // createTableHeaders(["ID", "Name", "Age"]);
-                // tableCsv.update([
-                //     [4500, "decode", 65],
-                //     [6300, "Pascal", 32],
-                //     [7200, "Gloria", 12]
-                // ], ["ID", "Name", "Age"]);
+            if (`${res?.status}` == 'Succesfully uploaded') {
 
                 Papa.parse(myFiles[0], {
                     delimeter: ',',
@@ -158,6 +196,19 @@
                         tableCsv.update(results.data.slice(1, 6), results.data[0]);
                     }
                 });
+                filepath = `${res?.message}`
+
+                gen_desc.addEventListener('click', async function(event){
+                    await generateDesc(filepath);
+                }, {once:true});
+
+                btn_tag.addEventListener('click', async function(event){
+                    await generateTag(filepath);
+                }, {once:true});
+
+                // gen_desc.removeEventListener('click', function(event){
+                //     generateDesc(filepath);
+                // });
             }
             
         });

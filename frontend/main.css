@@ -13,7 +13,7 @@ body {
     font-family: 'Poppins';
 }
 
-#button {
+.button {
     font-family: 'Poppins';
     background-color: rgb(67, 145, 67);
     color: white;
