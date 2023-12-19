@@ -23,7 +23,7 @@ body {
     /* rgb(0, 51, 0); - dark green */
 }
 
-#button {
+.button {
     font-family: 'Inter';
     background-color: rgb(67, 145, 67);
     color: white;
