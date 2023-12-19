@@ -5,6 +5,7 @@
 
 }
 body {
+    background-color: rgb(179, 255, 179);
     height: 100%;
     padding-left: 2em;
     padding-top: 1em;
@@ -17,12 +18,12 @@ body {
 }
 
 .dt-overview, .dt-desc-tag, .survey {
-    background-color: rgb(179, 255, 179);
+    background-color: white;
     padding: 1em;
     /* rgb(0, 51, 0); - dark green */
 }
 
-#button {
+.button {
     font-family: 'Inter';
     background-color: rgb(67, 145, 67);
     color: white;
