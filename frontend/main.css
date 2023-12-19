@@ -5,6 +5,7 @@
 
 }
 body {
+    background-color: rgb(179, 255, 179);
     height: 100%;
     padding-left: 2em;
     padding-top: 1em;
@@ -17,7 +18,7 @@ body {
 }
 
 .dt-overview, .dt-desc-tag, .survey {
-    background-color: rgb(179, 255, 179);
+    background-color: white;
     padding: 1em;
     /* rgb(0, 51, 0); - dark green */
 }
@@ -35,7 +36,7 @@ body {
     /* padding-bottom: 1em; */
     /* font-family: monospace, monospace; */
     width: 90%;
-    font-size: 35px;
+    font-size: 25px;
 }
 
 .subtitle {
