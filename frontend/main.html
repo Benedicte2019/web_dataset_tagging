@@ -4,7 +4,13 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="https://fonts.googleapis.com/css?family=Poppins" rel="stylesheet">
+    <link href='https://fonts.googleapis.com/css?family=Inter' rel='stylesheet'>
     <link rel="stylesheet" href="main.css">
+    
+    <!-- Load Normalize CSS and Prefixfree JSS for feedback forms with star rating -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/5.0.0/normalize.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prefixfree/1.0.7/prefixfree.min.js"></script>
+    
     <title>Atomatic Dataset Description</title>
 </head>
 <body>
@@ -14,6 +20,11 @@
         <!-- <hr> -->
     </div>
 
+    <div class="subtitle">
+        <p>Generate meaningful description for your dataset and extract relevant keywords</p>
+    </div>
+
+    <!-- <div class="main"></div> -->
     <!-- This section shows data head -->
     <div class="dt-overview">
         <div class="btn btn-df">
@@ -52,6 +63,52 @@
             <div class="content c-tag" id="c-tagging"></div>
         </div>
     </div>
+
+    <!-- feedback form for generated description and tags -->
+    <div class="survey">
+        <div class="title">Please rate the generated description</div>
+        
+        <!-- Rating box for description -->
+        <div class="rating-desc">
+            <input type="radio" name="star" id="s0">
+            <label class="star" for="s0"></label>
+            <input type="radio" name="star" id="s1">
+            <label class="star" for="s1"></label>
+            <input type="radio" name="star" id="s2">
+            <label class="star" for="s2"></label>
+            <input type="radio" name="star" id="s3">
+            <label class="star" for="s3"></label>
+            <input type="radio" name="star" id="s4">
+            <label class="star" for="s4"></label>
+        </div>
+        <div class="submit-btn">Send</div>
+
+        <div class="title">Please rate the extracted keywords</div>
+        <!-- Rating box for tagging -->
+        <div class="rating-tags">
+            <input type="radio" name="star1" id="s5">
+            <label class="star1" for="s5"></label>
+            <input type="radio" name="star1" id="s6">
+            <label class="star1" for="s6"></label>
+            <input type="radio" name="star1" id="s7">
+            <label class="star1" for="s7"></label>
+            <input type="radio" name="star1" id="s8">
+            <label class="star1" for="s8"></label>
+            <input type="radio" name="star1" id="s9">
+            <label class="star1" for="s9"></label>
+        </div>
+        <div class="submit-btn">Send</div>
+        <!-- <div class="description-rating">
+            <p>How would you rate the generated description?</p>
+            <form action=""></form>
+        </div>
+        <div class="tags-rating">
+            <p>How would you rate the generated keywords?</p>
+            <form action=""></form>
+        </div> -->
+    </div>
+
+
     <script src="https://cdn.jsdelivr.net/npm/papaparse@5.2.0/papaparse.min.js"></script>
     <script>
         const form = document.getElementById('uploadForm')

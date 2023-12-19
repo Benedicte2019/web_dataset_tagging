@@ -6,15 +6,24 @@
 }
 body {
     height: 100%;
-    padding-left: 1em;
+    padding-left: 2em;
     padding-top: 1em;
-    padding-right: 1em;
+    padding-right: 2em;
     padding-bottom: 3em; /*remove after adding footer*/
-    font-family: 'Poppins';
+    /* font-family: 'Poppins'; */
+    font-family: monospace, monospace;
+    /* background-color: rgb(0, 51, 0); */
+    /* color: white; */
 }
 
-.button {
-    font-family: 'Poppins';
+.dt-overview, .dt-desc-tag, .survey {
+    background-color: rgb(179, 255, 179);
+    padding: 1em;
+    /* rgb(0, 51, 0); - dark green */
+}
+
+#button {
+    font-family: 'Inter';
     background-color: rgb(67, 145, 67);
     color: white;
     padding: 0.5em;
@@ -23,7 +32,16 @@ body {
 
 /* style for title of page */
 .pg-title {
-    padding-bottom: 1em;
+    /* padding-bottom: 1em; */
+    /* font-family: monospace, monospace; */
+    width: 90%;
+    font-size: 35px;
+}
+
+.subtitle {
+    width: 60%;
+    font-size: 25px;
+    margin-bottom: 1em;
 }
 
 .btn {
@@ -128,3 +146,102 @@ table {
     color: green;
     background-color: rgb(67, 145, 67);
 } */
+
+
+/* rating forms for generated description and tags */
+/* "★"; */
+/* description rating */
+/* code sample source from: https://www.codehim.com/html5-css3/feedback-form-with-star-rating-in-html/ */
+.rating-desc {
+    display: flex;
+
+    /* if flex-direction not row-reverse rating goes from right to left rather than left to right */
+    flex-direction: row-reverse;
+    justify-content: left;
+}
+
+.rating-desc input {
+    display: none;
+}
+
+.rating-desc input:hover ~ .star:before {
+    color: bisque;
+}
+
+.rating-desc input:active + .star:before {
+    transform: scale(0.9);
+}
+
+.rating-desc input:checked ~ .star:before {
+    color: rgb(255, 217, 0);
+    /* include shadow? */
+}
+
+.rating-desc .star:before {
+    content: "★";
+    display: inline-block;
+    font-size: 2rem;
+    cursor: pointer;
+    color: #0000;
+    text-shadow: 2px 2px 3px rgba(255, 255, 255, 0.5);
+    background-color: #aaa;
+    background-clip: text;
+    -webkit-background-clip: text;
+    transition: all 0.3s;
+}
+
+/* tags rating */
+.rating-tags {
+    display: flex;
+    flex-direction: row-reverse;
+    justify-content: left;
+}
+
+.rating-tags input {
+    display: none;
+}
+
+.rating-tags input:hover ~ .star1:before {
+    color: bisque;
+}
+
+.rating-tags input:active + .star1:before {
+    transform: scale(0.9);
+}
+
+.rating-tags input:checked ~ .star1:before {
+    color: rgb(255, 217, 0);
+    /* include shadow? */
+}
+
+.rating-tags .star1:before {
+    content: "★";
+    display: inline-block;
+    font-size: 2rem;
+    cursor: pointer;
+    color: #0000;
+    text-shadow: 2px 2px 3px rgba(255, 255, 255, 0.5);
+    background-color: #aaa;
+    background-clip: text;
+    -webkit-background-clip: text;
+    transition: all 0.3s;
+}
+
+.submit-btn {
+    padding: 0.2rem 0.5rem;
+    box-shadow: 3px 3px 8px rgba(0, 0, 0, 0.3), -3px -3px 8px rgba(255, 255, 255, 0.8);
+    border-radius: 1rem;
+    cursor: pointer;
+    background-color: rgba(255, 204, 51, 0.8);
+    transition: all 0.2s;
+    width: 100px;
+    text-align: center;
+}
+
+.submit-btn:active {
+    transform: translate(2px, 2px);
+}
+
+/* To do: fix rating starts to start
+    from left from right rather than right to left
+ */
