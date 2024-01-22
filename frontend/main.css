@@ -5,7 +5,7 @@
 
 }
 body {
-    background-color: rgb(179, 255, 179);
+    background-color: rgb(229, 248, 229);
     height: 100%;
     padding-left: 2em;
     padding-top: 1em;
@@ -40,8 +40,8 @@ body {
 }
 
 .subtitle {
-    width: 60%;
-    font-size: 25px;
+    width: 70%;
+    font-size: 18px;
     margin-bottom: 1em;
 }
 
@@ -66,7 +66,7 @@ body {
 */
 .df {
     box-sizing: border-box;
-    border: 1px solid gray;
+    /* border: 1px solid gray; */
     overflow-x: auto; 
     overflow-y: hidden;
     /* height: 300px; */
@@ -109,35 +109,46 @@ table {
     background: #eeeeee;
   }
 
-.c-desc {
-    margin-right: 1em;
+.c-desc, .c-tag {
     box-sizing: border-box;
-    border: 1px solid gray;
+    text-align: justify;
+    border: 1px solid rgb(236, 235, 235);
     height: 200px;
+    padding: 20px;
+    overflow-x: auto; 
+    overflow-y: auto;
+    line-height: 1.5;
 }
 
-.c-tag {
-    padding-top: 1em;
+/* .c-tag {
     box-sizing: border-box;
-    border: 1px solid gray;
+    text-align: justify;
+    border: 1px solid rgb(236, 235, 235);
     height: 200px;
-}
+    padding: 20px;
+    overflow-x: auto; 
+    overflow-y: auto;
+} */
 
 /* aligning sections of description and tagging */
 .dt-desc-tag {
-    display: grid;
-    padding-top: 1em;
+    display: flex;
+    gap: 20px;
+    width: 100%;
+    /* padding-top: 1em;
     grid-template-areas: 
         'a a b'
-        'a a b';
+        'a a b'; */
 }
 
 .description {
-    grid-area: a;
+    /* grid-area: a; */
+    width: 70%;
 }
 
 .tagging {
-    grid-area: b;
+    width: 30%;
+    /* grid-area: b; */
 }
 
 /* #myFiles {
@@ -237,6 +248,7 @@ table {
     transition: all 0.2s;
     width: 100px;
     text-align: center;
+    margin-bottom: 30px;
 }
 
 .submit-btn:active {
